@@ -15,7 +15,7 @@ public class Author
 
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="city_id", nullable=false)
     private City city;
 }

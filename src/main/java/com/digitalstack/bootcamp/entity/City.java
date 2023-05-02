@@ -1,15 +1,13 @@
 package com.digitalstack.bootcamp.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 import lombok.Data;
-import lombok.ToString;
+
+import java.util.List;
 
 @Entity
 @Data
-@ToString
 public class City
 {
     @Id
@@ -18,5 +16,16 @@ public class City
 
     private String name;
 
-//    List<Author> authors;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "city", cascade = CascadeType.ALL)
+    List<Author> authors;
+
+    @Override
+    public String toString()
+    {
+        return "City{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
